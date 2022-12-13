@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,4 +41,11 @@ public class Member {
         nick_name varchar(30) not null,
         primary key (id)
     )*/
+
+    @OneToMany(mappedBy = "member") // 연관관계 주인은 order.member
+    private List<Order> orders = new ArrayList<>();
+
+    public void addOrder(Order order) {
+        order.setMember(this);
+    }
 }
